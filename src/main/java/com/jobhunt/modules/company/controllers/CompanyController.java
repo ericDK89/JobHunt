@@ -1,6 +1,6 @@
 package com.jobhunt.modules.company.controllers;
 
-import com.jobhunt.exceptions.AlreadyExists;
+import com.jobhunt.exceptions.AlreadyExistsException;
 import com.jobhunt.modules.company.entities.CompanyEntity;
 import com.jobhunt.modules.company.useCases.CreateCompanyUseCase;
 import jakarta.validation.Valid;
@@ -24,7 +24,7 @@ public class CompanyController {
         try {
             var response = createCompanyUseCase.execute(company);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (AlreadyExists e) {
+        } catch (AlreadyExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
